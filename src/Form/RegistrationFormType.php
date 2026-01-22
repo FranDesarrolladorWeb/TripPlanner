@@ -22,9 +22,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter your email',
-                    ]),
+                    new NotBlank(message: 'Please enter your email'),
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -40,23 +38,19 @@ class RegistrationFormType extends AbstractType
                 ],
                 'invalid_message' => 'The password fields must match.',
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        'max' => 4096,
-                    ]),
+                    new NotBlank(message: 'Please enter a password'),
+                    new Length(
+                        min: 6,
+                        minMessage: 'Your password should be at least {{ limit }} characters',
+                        max: 4096
+                    ),
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'I agree to the terms and conditions',
                 'mapped' => false,
                 'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
+                    new IsTrue(message: 'You should agree to our terms.'),
                 ],
             ])
         ;
