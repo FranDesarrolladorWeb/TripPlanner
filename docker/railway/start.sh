@@ -10,14 +10,8 @@ echo "Starting TripPlanner on port $PORT"
 envsubst '${PORT}' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf.tmp
 mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
 
-# Clear Symfony cache for production
-php bin/console cache:clear --env=prod --no-debug
-
 # Run database migrations
-php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
-
-# Warm up cache
-php bin/console cache:warmup --env=prod
+php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration --env=prod
 
 # Set proper permissions
 chown -R www-data:www-data /var/www/html/var

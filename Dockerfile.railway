@@ -24,8 +24,18 @@ WORKDIR /var/www/html
 # Copy application files
 COPY . /var/www/html
 
+# Set production environment for build
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
+
+# Update .env file for production
+RUN sed -i 's/APP_ENV=dev/APP_ENV=prod/' .env
+
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Warm up cache during build (skip if APP_SECRET not set)
+RUN php bin/console cache:warmup --env=prod --no-debug || true
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
