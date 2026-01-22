@@ -49,7 +49,8 @@ echo "Launching supervisor..."
 SUPERVISOR_PID=$!
 
 # Wait for services to start
-sleep 3
+echo "Waiting for services to fully initialize..."
+sleep 5
 
 # Verify services are listening
 echo "========================================="
