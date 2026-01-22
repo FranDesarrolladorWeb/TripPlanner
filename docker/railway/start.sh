@@ -39,4 +39,18 @@ php-fpm -t
 
 # Start supervisor (which starts PHP-FPM and Nginx)
 echo "Launching supervisor..."
-exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf &
+SUPERVISOR_PID=$!
+
+# Wait for services to start
+sleep 3
+
+# Verify services are listening
+echo "========================================="
+echo "Verifying services are listening..."
+echo "========================================="
+netstat -tuln 2>/dev/null || ss -tuln
+echo "========================================="
+
+# Keep supervisor in foreground
+wait $SUPERVISOR_PID
