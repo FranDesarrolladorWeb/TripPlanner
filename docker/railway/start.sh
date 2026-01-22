@@ -12,6 +12,12 @@ echo "Configuring Nginx with PORT=$PORT"
 envsubst '${PORT}' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf.tmp
 mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
 
+# Show the actual Nginx config being used
+echo "========================================="
+echo "Nginx configuration after PORT substitution:"
+cat /etc/nginx/nginx.conf
+echo "========================================="
+
 # Set proper permissions first
 echo "Setting permissions..."
 chown -R www-data:www-data /var/www/html/var
@@ -52,5 +58,17 @@ echo "========================================="
 netstat -tuln 2>/dev/null || ss -tuln
 echo "========================================="
 
-# Keep supervisor in foreground
+# Test if Nginx is actually responding
+echo "Testing Nginx HTTP response..."
+curl -v http://localhost:$PORT/ 2>&1 | head -n 20 || echo "Curl failed"
+echo "========================================="
+
+# Show Nginx error log if there are any errors
+echo "Checking Nginx error log..."
+cat /var/log/nginx/error.log 2>/dev/null || echo "No error log yet"
+echo "========================================="
+
+# Keep supervisor in foreground and show continuous logs
+echo "Container is ready and monitoring logs..."
+tail -f /var/log/nginx/access.log /var/log/nginx/error.log 2>/dev/null &
 wait $SUPERVISOR_PID
