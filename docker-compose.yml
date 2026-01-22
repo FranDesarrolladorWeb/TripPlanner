@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tripplanner_php
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - tripplanner_network
+    depends_on:
+      - database
+
+  nginx:
+    image: nginx:alpine
+    container_name: tripplanner_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - tripplanner_network
+    depends_on:
+      - php
+
+  database:
+    image: mysql:8.0
+    container_name: tripplanner_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tripplanner
+      MYSQL_USER: tripplanner
+      MYSQL_PASSWORD: tripplanner
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - tripplanner_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+networks:
+  tripplanner_network:
+    driver: bridge
+
+volumes:
+  db_data:

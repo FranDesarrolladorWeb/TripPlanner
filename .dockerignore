@@ -1,0 +1,8 @@
+.git
+.gitignore
+.idea
+README.md
+var/
+vendor/
+.env.local
+.env.*.local
