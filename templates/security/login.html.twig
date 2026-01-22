@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login - TripPlanner{% endblock %}
+
+{% block body %}
+<h1>Login</h1>
+
+{% if error %}
+    <div class="flash error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form method="post">
+    <div class="form-group">
+        <label for="username">Email:</label>
+        <input type="email" value="{{ last_username }}" name="_username" id="username" required autofocus>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" name="_password" id="password" required>
+    </div>
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+    <button class="btn" type="submit">Login</button>
+</form>
+
+<p>Don't have an account? <a href="{{ path('app_register') }}">Register here</a></p>
+{% endblock %}

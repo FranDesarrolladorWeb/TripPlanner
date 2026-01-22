@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register - TripPlanner{% endblock %}
+
+{% block body %}
+<h1>Register</h1>
+
+{{ form_start(registrationForm) }}
+    <div class="form-group">
+        {{ form_label(registrationForm.email) }}
+        {{ form_widget(registrationForm.email) }}
+        {{ form_errors(registrationForm.email) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(registrationForm.plainPassword.first) }}
+        {{ form_widget(registrationForm.plainPassword.first) }}
+        {{ form_errors(registrationForm.plainPassword.first) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(registrationForm.plainPassword.second) }}
+        {{ form_widget(registrationForm.plainPassword.second) }}
+        {{ form_errors(registrationForm.plainPassword.second) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_widget(registrationForm.agreeTerms) }}
+        {{ form_label(registrationForm.agreeTerms) }}
+        {{ form_errors(registrationForm.agreeTerms) }}
+    </div>
+
+    <button type="submit" class="btn">Register</button>
+{{ form_end(registrationForm) }}
+
+<p>Already have an account? <a href="{{ path('app_login') }}">Login here</a></p>
+{% endblock %}

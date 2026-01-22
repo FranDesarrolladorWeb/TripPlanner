@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home - TripPlanner{% endblock %}
+
+{% block body %}
+<h1>Welcome to TripPlanner ✈️</h1>
+
+{% if app.user %}
+    <p>Hello, {{ app.user.email }}! You are logged in.</p>
+    <p>Start planning your next amazing trip!</p>
+{% else %}
+    <p>Plan your perfect trip with ease.</p>
+    <p>
+        <a href="{{ path('app_register') }}" class="btn">Get Started</a>
+        or
+        <a href="{{ path('app_login') }}">Login</a>
+    </p>
+{% endif %}
+{% endblock %}
