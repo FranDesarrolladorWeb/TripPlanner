@@ -1,37 +1,123 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Register - TripPlanner{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    .auth-container {
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1.5rem;
+        background: var(--bg-light);
+    }
+
+    .auth-box {
+        background: #fff;
+        padding: 3rem;
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .auth-header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+    }
+
+    .auth-header p {
+        color: var(--text-light);
+    }
+
+    .auth-form .btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--text-light);
+    }
+
+    .auth-footer a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .auth-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .terms-checkbox {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .terms-checkbox label {
+        margin: 0;
+        font-weight: 400 !important;
+    }
+
+    @media (max-width: 480px) {
+        .auth-box {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-<h1>Register</h1>
+<div class="auth-container">
+    <div class="auth-box">
+        <div class="auth-header">
+            <h1>Create Your Account</h1>
+            <p>Start planning your next adventure today</p>
+        </div>
 
-{{ form_start(registrationForm) }}
-    <div class="form-group">
-        {{ form_label(registrationForm.email) }}
-        {{ form_widget(registrationForm.email) }}
-        {{ form_errors(registrationForm.email) }}
+        {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+            <div class="form-group">
+                {{ form_label(registrationForm.email, 'Email Address') }}
+                {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'you@example.com'}}) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword.first, 'Password') }}
+                {{ form_widget(registrationForm.plainPassword.first, {'attr': {'placeholder': 'At least 6 characters'}}) }}
+                {{ form_errors(registrationForm.plainPassword.first) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword.second, 'Confirm Password') }}
+                {{ form_widget(registrationForm.plainPassword.second, {'attr': {'placeholder': 'Re-enter your password'}}) }}
+                {{ form_errors(registrationForm.plainPassword.second) }}
+            </div>
+
+            <div class="form-group terms-checkbox">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_label(registrationForm.agreeTerms) }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+
+            <button type="submit" class="btn">Create Account</button>
+        {{ form_end(registrationForm) }}
+
+        <div class="auth-footer">
+            Already have an account? <a href="{{ path('app_login') }}">Sign in</a>
+        </div>
     </div>
-
-    <div class="form-group">
-        {{ form_label(registrationForm.plainPassword.first) }}
-        {{ form_widget(registrationForm.plainPassword.first) }}
-        {{ form_errors(registrationForm.plainPassword.first) }}
-    </div>
-
-    <div class="form-group">
-        {{ form_label(registrationForm.plainPassword.second) }}
-        {{ form_widget(registrationForm.plainPassword.second) }}
-        {{ form_errors(registrationForm.plainPassword.second) }}
-    </div>
-
-    <div class="form-group">
-        {{ form_widget(registrationForm.agreeTerms) }}
-        {{ form_label(registrationForm.agreeTerms) }}
-        {{ form_errors(registrationForm.agreeTerms) }}
-    </div>
-
-    <button type="submit" class="btn">Register</button>
-{{ form_end(registrationForm) }}
-
-<p>Already have an account? <a href="{{ path('app_login') }}">Login here</a></p>
+</div>
 {% endblock %}

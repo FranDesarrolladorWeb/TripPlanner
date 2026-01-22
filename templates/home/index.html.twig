@@ -1,19 +1,308 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home - TripPlanner{% endblock %}
+{% block title %}TripPlanner - Plan Your Perfect Journey{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    /* Hero Section */
+    .hero {
+        text-align: center;
+        padding: 5rem 1.5rem 4rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .hero .btn {
+        font-size: 1.125rem;
+        padding: 1rem 2rem;
+    }
+
+    /* Features Section */
+    .features {
+        padding: 5rem 1.5rem;
+        background: var(--bg-light);
+    }
+
+    .features h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-dark);
+    }
+
+    .features-subtitle {
+        text-align: center;
+        color: var(--text-light);
+        font-size: 1.125rem;
+        margin-bottom: 3rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--text-dark);
+    }
+
+    .feature-card p {
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    /* Destinations Section */
+    .destinations {
+        padding: 5rem 1.5rem;
+    }
+
+    .destinations h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .destinations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .destination-card {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform 0.2s;
+        cursor: pointer;
+    }
+
+    .destination-card:hover {
+        transform: scale(1.02);
+    }
+
+    .destination-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .destination-info {
+        padding: 1.5rem;
+    }
+
+    .destination-info h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .destination-info p {
+        color: var(--text-light);
+        font-size: 0.875rem;
+    }
+
+    /* CTA Section */
+    .cta {
+        background: var(--primary-color);
+        color: #fff;
+        text-align: center;
+        padding: 5rem 1.5rem;
+    }
+
+    .cta h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .cta p {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+    }
+
+    .cta .btn {
+        background: #fff;
+        color: var(--primary-color);
+        font-size: 1.125rem;
+        padding: 1rem 2rem;
+    }
+
+    .cta .btn:hover {
+        background: var(--bg-light);
+        transform: translateY(-2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+        }
+
+        .features h2,
+        .destinations h2,
+        .cta h2 {
+            font-size: 2rem;
+        }
+
+        .features-grid,
+        .destinations-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-<h1>Welcome to TripPlanner ✈️</h1>
+<!-- Hero Section -->
+<section class="hero">
+    <h1>✈️ Plan Your Perfect Journey</h1>
+    <p>Discover, organize, and share your travel experiences with the ultimate trip planning companion.</p>
+    <div class="hero-buttons">
+        {% if app.user %}
+            <a href="#" class="btn">Start Planning</a>
+        {% else %}
+            <a href="{{ path('app_register') }}" class="btn">Get Started Free</a>
+            <a href="{{ path('app_login') }}" class="btn btn-secondary">Sign In</a>
+        {% endif %}
+    </div>
+</section>
 
-{% if app.user %}
-    <p>Hello, {{ app.user.email }}! You are logged in.</p>
-    <p>Start planning your next amazing trip!</p>
-{% else %}
-    <p>Plan your perfect trip with ease.</p>
-    <p>
-        <a href="{{ path('app_register') }}" class="btn">Get Started</a>
-        or
-        <a href="{{ path('app_login') }}">Login</a>
-    </p>
-{% endif %}
+<!-- Features Section -->
+<section class="features">
+    <h2>Everything You Need for Amazing Trips</h2>
+    <p class="features-subtitle">Plan, organize, and experience your travels like never before</p>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🗺️</div>
+            <h3>Smart Itineraries</h3>
+            <p>Create detailed day-by-day plans with attractions, restaurants, and activities all in one place.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h3>Budget Tracking</h3>
+            <p>Keep your spending in check with real-time budget tracking and expense management tools.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Offline Access</h3>
+            <p>Access your plans anytime, anywhere - even without an internet connection.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3>Collaborate</h3>
+            <p>Plan trips together with friends and family. Share itineraries and stay in sync.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🌟</div>
+            <h3>Discover Places</h3>
+            <p>Find hidden gems and popular attractions with personalized recommendations.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📸</div>
+            <h3>Save Memories</h3>
+            <p>Capture and organize your travel photos and memories in beautiful collections.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Destinations -->
+<section class="destinations">
+    <h2>Popular Destinations</h2>
+    <div class="destinations-grid">
+        <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop" alt="Paris" class="destination-image">
+            <div class="destination-info">
+                <h3>Paris, France</h3>
+                <p>The city of lights awaits with art, culture, and romance</p>
+            </div>
+        </div>
+        <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=600&h=400&fit=crop" alt="Tokyo" class="destination-image">
+            <div class="destination-info">
+                <h3>Tokyo, Japan</h3>
+                <p>Experience the perfect blend of tradition and technology</p>
+            </div>
+        </div>
+        <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&h=400&fit=crop" alt="Santorini" class="destination-image">
+            <div class="destination-info">
+                <h3>Santorini, Greece</h3>
+                <p>Stunning sunsets and whitewashed buildings by the sea</p>
+            </div>
+        </div>
+        <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=600&h=400&fit=crop" alt="New York" class="destination-image">
+            <div class="destination-info">
+                <h3>New York, USA</h3>
+                <p>The city that never sleeps with endless possibilities</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <h2>Ready to Start Your Adventure?</h2>
+    <p>Join thousands of travelers planning their perfect trips</p>
+    {% if not app.user %}
+        <a href="{{ path('app_register') }}" class="btn">Create Free Account</a>
+    {% else %}
+        <a href="#" class="btn">Create Your First Trip</a>
+    {% endif %}
+</section>
 {% endblock %}
