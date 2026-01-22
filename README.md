@@ -4,11 +4,12 @@ A modern trip planning application built with Symfony 8.
 
 ## Tech Stack
 
-- **PHP**: 8.3
+- **PHP**: 8.4
 - **Symfony**: 8.0
 - **Database**: MySQL 8.0
 - **Web Server**: Nginx (Alpine)
 - **Containerization**: Docker & Docker Compose
+- **Deployment**: Railway (Production)
 
 ## Included Packages
 
@@ -37,7 +38,7 @@ docker-compose up -d
 ```
 
 This will start three containers:
-- `tripplanner_php` - PHP-FPM 8.3
+- `tripplanner_php` - PHP-FPM 8.4
 - `tripplanner_nginx` - Nginx web server
 - `tripplanner_db` - MySQL 8.0 database
 
@@ -210,6 +211,16 @@ Environment variables are stored in `.env` file. Key configurations:
 - `DATABASE_URL` - Database connection string
 - `MESSENGER_TRANSPORT_DSN` - Message queue configuration
 - `MAILER_DSN` - Email configuration
+
+## Deployment to Railway
+
+For production deployment instructions, see [RAILWAY_DEPLOYMENT.md](RAILWAY_DEPLOYMENT.md).
+
+Quick overview:
+1. Add MySQL database in Railway
+2. Configure environment variables (APP_ENV, APP_SECRET, APP_DEBUG)
+3. Railway automatically builds using `Dockerfile.railway`
+4. Application runs on Railway's dynamic PORT
 
 ## Contributing
 
