@@ -29,8 +29,14 @@ echo "========================================="
 echo "Configuration complete!"
 echo "PORT: $PORT"
 echo "APP_ENV: $APP_ENV"
+echo "PHP_VERSION: $(php -v | head -n 1)"
 echo "Starting PHP-FPM and Nginx via supervisor..."
 echo "========================================="
 
+# Test PHP-FPM configuration
+echo "Testing PHP-FPM configuration..."
+php-fpm -t
+
 # Start supervisor (which starts PHP-FPM and Nginx)
+echo "Launching supervisor..."
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
