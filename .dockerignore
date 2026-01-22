@@ -2,7 +2,13 @@
 .gitignore
 .idea
 README.md
-var/
-vendor/
+RAILWAY_DEPLOYMENT.md
+docker-compose.yml
+Dockerfile
+var/cache/*
+var/log/*
 .env.local
 .env.*.local
+.env.test
+tests/
+phpunit.dist.xml
