@@ -6,15 +6,46 @@ Adminer is a lightweight database management tool (similar to phpMyAdmin) contai
 
 ## Accessing Adminer
 
+**IMPORTANT:** Only users with **ROLE_ADMIN** can access Adminer. Regular users will be denied access.
+
 ### Production (Railway)
-1. Go to: `https://tripplanner-prod.up.railway.app/adminer.php`
-2. You'll be redirected to login first (Adminer is protected by authentication)
-3. Login with your TripPlanner account
-4. You'll then see the Adminer login screen
+1. Go to: `https://tripplanner-prod.up.railway.app/adminer`
+2. You'll be redirected to login if not authenticated
+3. Login with an **admin account** (must have ROLE_ADMIN)
+4. You'll then see the Adminer database management interface
 
 ### Local Development
-1. Go to: `http://localhost:8081/adminer.php`
-2. Direct access (no authentication required in dev mode)
+1. Go to: `http://localhost:8081/adminer`
+2. Login required (admin account)
+
+## How to Promote a User to Admin
+
+### On Railway (Production)
+You need to run a command via Railway CLI:
+
+```bash
+# Install Railway CLI if not installed
+npm i -g @railway/cli
+
+# Login to Railway
+railway login
+
+# Link to your project
+railway link
+
+# Promote user to admin (replace with actual email)
+railway run php bin/console app:user:promote user@example.com
+```
+
+### Local Development
+```bash
+docker-compose exec php bin/console app:user:promote user@example.com
+```
+
+You'll see a success message:
+```
+[OK] User "user@example.com" has been promoted to admin!
+```
 
 ## Connecting to Database
 
@@ -101,9 +132,11 @@ Once connected, you can:
 ## Security Notes
 
 ⚠️ **IMPORTANT:**
-- Adminer is protected by Symfony authentication (ROLE_USER required)
-- Only logged-in users can access it in production
+- Adminer is protected by Symfony authentication (**ROLE_ADMIN required**)
+- Only admin users can access it in production
+- Regular users will receive "Access Denied" error
 - Keep your database credentials secure
+- Only promote trusted users to admin
 - Consider removing Adminer from production if not needed long-term
 
 ## Troubleshooting
