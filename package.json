@@ -1,0 +1,42 @@
+{
+  "name": "tripplanner",
+  "version": "1.0.0",
+  "description": "A modern trip planning application built with Symfony 8.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ios:sync": "npx cap sync ios",
+    "ios:copy": "npx cap copy ios",
+    "ios:open": "npx cap open ios",
+    "ios:run": "npx cap run ios",
+    "cap:sync": "npx cap sync",
+    "cap:update": "npx cap update"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FranDesarrolladorWeb/TripPlanner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FranDesarrolladorWeb/TripPlanner/issues"
+  },
+  "homepage": "https://github.com/FranDesarrolladorWeb/TripPlanner#readme",
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.1",
+    "@capacitor/core": "^8.0.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/geolocation": "^8.0.0",
+    "@capacitor/ios": "^8.0.1",
+    "@capacitor/preferences": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0"
+  }
+}

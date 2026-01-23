@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TripPlanner</title>
+
+    <!-- iOS Status Bar -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- iOS Safe Area Insets -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        #splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 9999;
+        }
+
+        #splash h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        #splash .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #app {
+            display: none;
+        }
+
+        #app.loaded {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash">
+        <h1>✈️ TripPlanner</h1>
+        <div class="spinner"></div>
+    </div>
+
+    <!-- App Container -->
+    <div id="app">
+        <h1>Welcome to TripPlanner</h1>
+        <p>Loading your trips...</p>
+    </div>
+
+    <!-- Capacitor will be injected here -->
+    <script type="module">
+        import { CapacitorApp } from '@capacitor/app';
+
+        // Simple app initialization
+        window.addEventListener('DOMContentLoaded', async function() {
+            console.log('TripPlanner mobile app loading...');
+
+            try {
+                // For mobile app: redirect immediately to home page
+                // The splash screen is handled by Capacitor natively
+                console.log('Redirecting to home page...');
+                window.location.href = '/';
+            } catch (error) {
+                console.error('Error loading app:', error);
+                document.getElementById('splash').innerHTML = '<h1>Error loading app</h1><p>' + error.message + '</p>';
+            }
+        });
+    </script>
+</body>
+</html>

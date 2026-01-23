@@ -18,3 +18,17 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> capacitor/ios-app ###
+/node_modules/
+/package-lock.json
+/ios/App/Pods/
+/ios/App/App/public/
+/ios/App/App/capacitor.config.json
+*.log
+npm-debug.log*
+###< capacitor/ios-app ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

@@ -15,6 +15,20 @@ security:
             # Ensure dev tools and static assets are always allowed
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
+
+        # API login endpoint (no JWT required)
+        api_login:
+            pattern: ^/api/auth/login
+            stateless: true
+            security: false
+
+        # API endpoints (JWT authentication)
+        api:
+            pattern: ^/api
+            stateless: true
+            jwt: ~
+
+        # Web application (form login)
         main:
             lazy: true
             provider: app_user_provider
@@ -34,6 +48,13 @@ security:
 
     # Note: Only the *first* matching rule is applied
     access_control:
+        # Public API endpoints
+        - { path: ^/api/auth/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth/register, roles: PUBLIC_ACCESS }
+        - { path: ^/api/destinations, roles: PUBLIC_ACCESS }
+        # Protected API endpoints
+        - { path: ^/api, roles: ROLE_USER }
+        # Web routes
         - { path: ^/adminer, roles: ROLE_ADMIN }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
