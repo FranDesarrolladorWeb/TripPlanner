@@ -50,7 +50,18 @@ SUPERVISOR_PID=$!
 
 # Wait for services to start
 echo "Waiting for services to fully initialize..."
-sleep 5
+sleep 3
+
+# Wait until Nginx is actually accepting connections
+echo "Waiting for Nginx to be ready to accept connections..."
+for i in {1..30}; do
+    if curl -f -s http://localhost:$PORT/ > /dev/null 2>&1; then
+        echo "✓ Nginx is ready and accepting connections!"
+        break
+    fi
+    echo "  Attempt $i/30: Nginx not ready yet, waiting..."
+    sleep 1
+done
 
 # Verify services are listening
 echo "========================================="
