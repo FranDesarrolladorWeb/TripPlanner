@@ -51,6 +51,7 @@ security:
         # Public API endpoints
         - { path: ^/api/auth/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/auth/register, roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth/logout, roles: PUBLIC_ACCESS }
         - { path: ^/api/destinations, roles: PUBLIC_ACCESS }
         # Protected API endpoints
         - { path: ^/api, roles: ROLE_USER }
