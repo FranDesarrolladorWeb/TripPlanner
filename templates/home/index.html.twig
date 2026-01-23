@@ -5,40 +5,141 @@
 {% block stylesheets %}
 {{ parent() }}
 <style>
-    /* Hero Section */
-    .hero {
+    /* Carousel Hero Section */
+    .carousel-hero {
+        background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+        padding: 3rem 0 4rem;
+        overflow: hidden;
+    }
+
+    .carousel-header {
         text-align: center;
-        padding: 5rem 1.5rem 4rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: #fff;
+        padding: 0 1.5rem 2rem;
     }
 
-    .hero h1 {
-        font-size: 3rem;
-        font-weight: 800;
-        margin-bottom: 1.5rem;
-        line-height: 1.2;
+    .carousel-header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-dark);
     }
 
-    .hero p {
-        font-size: 1.25rem;
-        margin-bottom: 2rem;
-        opacity: 0.95;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .hero-buttons {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .hero .btn {
+    .carousel-header p {
         font-size: 1.125rem;
-        padding: 1rem 2rem;
+        color: var(--text-light);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+    }
+
+    /* Carousel Container */
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding: 0 2rem;
+    }
+
+    .carousel-track {
+        display: flex;
+        gap: 1.5rem;
+        animation: scroll 35s linear infinite;
+        width: fit-content;
+        will-change: transform;
+    }
+
+    .carousel-track:hover {
+        animation-play-state: paused;
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* Destination Card */
+    .destination-carousel-card {
+        flex: 0 0 340px;
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+
+    .destination-carousel-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .destination-carousel-image {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
+    .destination-carousel-info {
+        padding: 1.25rem;
+    }
+
+    .destination-category {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--primary-color);
+        background: rgba(102, 126, 234, 0.1);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+
+    .destination-carousel-info h3 {
+        font-size: 1.375rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+    }
+
+    .destination-carousel-info p {
+        color: var(--text-light);
+        font-size: 0.9375rem;
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
+    }
+
+    .destination-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9375rem;
+        color: var(--text-dark);
+        font-weight: 500;
+    }
+
+    .rating-stars {
+        color: #fbbf24;
+        font-size: 1rem;
+    }
+
+    .rating-count {
+        color: var(--text-light);
+        font-weight: 400;
+    }
+
+    .carousel-cta {
+        text-align: center;
+        margin-top: 2.5rem;
+    }
+
+    .carousel-cta .btn {
+        font-size: 1.125rem;
+        padding: 1rem 2.5rem;
     }
 
     /* Features Section */
@@ -101,57 +202,6 @@
         line-height: 1.6;
     }
 
-    /* Destinations Section */
-    .destinations {
-        padding: 5rem 1.5rem;
-    }
-
-    .destinations h2 {
-        text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 3rem;
-    }
-
-    .destinations-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .destination-card {
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        transition: transform 0.2s;
-        cursor: pointer;
-    }
-
-    .destination-card:hover {
-        transform: scale(1.02);
-    }
-
-    .destination-image {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-    }
-
-    .destination-info {
-        padding: 1.5rem;
-    }
-
-    .destination-info h3 {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .destination-info p {
-        color: var(--text-light);
-        font-size: 0.875rem;
-    }
-
     /* CTA Section */
     .cta {
         background: var(--primary-color);
@@ -185,39 +235,180 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-        .hero h1 {
-            font-size: 2rem;
+        .carousel-header h1 {
+            font-size: 1.875rem;
         }
 
-        .hero p {
+        .carousel-header p {
             font-size: 1rem;
         }
 
+        .carousel-container {
+            padding: 0 1rem;
+        }
+
+        .destination-carousel-card {
+            flex: 0 0 280px;
+        }
+
+        .destination-carousel-image {
+            height: 200px;
+        }
+
         .features h2,
-        .destinations h2,
         .cta h2 {
             font-size: 2rem;
         }
 
-        .features-grid,
-        .destinations-grid {
+        .features-grid {
             grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .destination-carousel-card {
+            flex: 0 0 260px;
+        }
+
+        .carousel-track {
+            animation: scroll 45s linear infinite;
         }
     }
 </style>
 {% endblock %}
 
 {% block body %}
-<!-- Hero Section -->
-<section class="hero">
-    <h1>✈️ Plan Your Perfect Journey</h1>
-    <p>Discover, organize, and share your travel experiences with the ultimate trip planning companion.</p>
-    <div class="hero-buttons">
+<!-- Carousel Hero Section -->
+<section class="carousel-hero">
+    <div class="carousel-header">
+        <h1>Discover Amazing Destinations</h1>
+        <p>Explore curated travel spots and plan your next adventure</p>
+    </div>
+
+    <!-- TODO: Future implementation - fetch destinations from database with DestinationRepository -->
+    <div class="carousel-container">
+        <div class="carousel-track">
+            <!-- First set of cards -->
+            <div class="destination-carousel-card">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop" alt="Paris" class="destination-carousel-image">
+                <div class="destination-carousel-info">
+                    <span class="destination-category">City Break</span>
+                    <h3>Paris, France</h3>
+                    <p>The city of lights awaits with art, culture, and romance</p>
+                    <div class="destination-rating">
+                        <span class="rating-stars">★</span>
+                        <span>4.8</span>
+                        <span class="rating-count">(3.2k reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-carousel-card">
+                <img src="https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=600&h=400&fit=crop" alt="Tokyo" class="destination-carousel-image">
+                <div class="destination-carousel-info">
+                    <span class="destination-category">Adventure</span>
+                    <h3>Tokyo, Japan</h3>
+                    <p>Experience the perfect blend of tradition and technology</p>
+                    <div class="destination-rating">
+                        <span class="rating-stars">★</span>
+                        <span>4.9</span>
+                        <span class="rating-count">(5.1k reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-carousel-card">
+                <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&h=400&fit=crop" alt="Santorini" class="destination-carousel-image">
+                <div class="destination-carousel-info">
+                    <span class="destination-category">Beach</span>
+                    <h3>Santorini, Greece</h3>
+                    <p>Stunning sunsets and whitewashed buildings by the sea</p>
+                    <div class="destination-rating">
+                        <span class="rating-stars">★</span>
+                        <span>4.7</span>
+                        <span class="rating-count">(2.8k reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-carousel-card">
+                <img src="https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=600&h=400&fit=crop" alt="New York" class="destination-carousel-image">
+                <div class="destination-carousel-info">
+                    <span class="destination-category">Urban</span>
+                    <h3>New York, USA</h3>
+                    <p>The city that never sleeps with endless possibilities</p>
+                    <div class="destination-rating">
+                        <span class="rating-stars">★</span>
+                        <span>4.6</span>
+                        <span class="rating-count">(4.5k reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Duplicate set for seamless loop -->
+            <div class="destination-carousel-card">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop" alt="Paris" class="destination-carousel-image">
+                <div class="destination-carousel-info">
+                    <span class="destination-category">City Break</span>
+                    <h3>Paris, France</h3>
+                    <p>The city of lights awaits with art, culture, and romance</p>
+                    <div class="destination-rating">
+                        <span class="rating-stars">★</span>
+                        <span>4.8</span>
+                        <span class="rating-count">(3.2k reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-carousel-card">
+                <img src="https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=600&h=400&fit=crop" alt="Tokyo" class="destination-carousel-image">
+                <div class="destination-carousel-info">
+                    <span class="destination-category">Adventure</span>
+                    <h3>Tokyo, Japan</h3>
+                    <p>Experience the perfect blend of tradition and technology</p>
+                    <div class="destination-rating">
+                        <span class="rating-stars">★</span>
+                        <span>4.9</span>
+                        <span class="rating-count">(5.1k reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-carousel-card">
+                <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&h=400&fit=crop" alt="Santorini" class="destination-carousel-image">
+                <div class="destination-carousel-info">
+                    <span class="destination-category">Beach</span>
+                    <h3>Santorini, Greece</h3>
+                    <p>Stunning sunsets and whitewashed buildings by the sea</p>
+                    <div class="destination-rating">
+                        <span class="rating-stars">★</span>
+                        <span>4.7</span>
+                        <span class="rating-count">(2.8k reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-carousel-card">
+                <img src="https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=600&h=400&fit=crop" alt="New York" class="destination-carousel-image">
+                <div class="destination-carousel-info">
+                    <span class="destination-category">Urban</span>
+                    <h3>New York, USA</h3>
+                    <p>The city that never sleeps with endless possibilities</p>
+                    <div class="destination-rating">
+                        <span class="rating-stars">★</span>
+                        <span>4.6</span>
+                        <span class="rating-count">(4.5k reviews)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="carousel-cta">
         {% if app.user %}
-            <a href="#" class="btn">Start Planning</a>
+            <a href="#" class="btn">Start Planning Your Trip</a>
         {% else %}
             <a href="{{ path('app_register') }}" class="btn">Get Started Free</a>
-            <a href="{{ path('app_login') }}" class="btn btn-secondary">Sign In</a>
         {% endif %}
     </div>
 </section>
@@ -260,40 +451,6 @@
     </div>
 </section>
 
-<!-- Popular Destinations -->
-<section class="destinations">
-    <h2>Popular Destinations</h2>
-    <div class="destinations-grid">
-        <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop" alt="Paris" class="destination-image">
-            <div class="destination-info">
-                <h3>Paris, France</h3>
-                <p>The city of lights awaits with art, culture, and romance</p>
-            </div>
-        </div>
-        <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=600&h=400&fit=crop" alt="Tokyo" class="destination-image">
-            <div class="destination-info">
-                <h3>Tokyo, Japan</h3>
-                <p>Experience the perfect blend of tradition and technology</p>
-            </div>
-        </div>
-        <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&h=400&fit=crop" alt="Santorini" class="destination-image">
-            <div class="destination-info">
-                <h3>Santorini, Greece</h3>
-                <p>Stunning sunsets and whitewashed buildings by the sea</p>
-            </div>
-        </div>
-        <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=600&h=400&fit=crop" alt="New York" class="destination-image">
-            <div class="destination-info">
-                <h3>New York, USA</h3>
-                <p>The city that never sleeps with endless possibilities</p>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- CTA Section -->
 <section class="cta">
